@@ -241,6 +241,62 @@ yarn build
 В классе также реализованы сеттеры:
 
  - items - для установки карточек товаров из предоставленного массива в блок (list), а в случае пустой корзины — уведомляет пользователя о ее пустоте и управляет состоянием кнопки для оформления заказа.
- - total - для установки значения суммы товаров в корзине в соответствующее поле.  
+ - total - для установки значения суммы товаров в корзине в соответствующее поле.
+
+
+*Основные типы данных
+```
+export enum Category {
+	'софт-скил',
+	'другое',
+	'дополнительное',
+	'кнопка',
+	'хард-скил',
+}
+
+export interface ICardItem {
+	id: string;
+	title: string;
+	description?: string;
+	image?: string;
+	category?: Category;
+	price: number | null;
+	buttonName?: string;
+}
+
+export interface ICardList {
+	total: number;
+	items: ICardItem[];
+}
+
+export interface IOrderContacts {
+	email: string;
+	phone: string;
+}
+
+export interface IOrderPayments {
+	payment: string;
+	address: string;
+}
+
+export interface IOrder extends IOrderContacts, IOrderPayments {
+	total: number;
+	items: string[];
+}
+
+export interface IOrderResult {
+	id: string;
+	total: number;
+}
+
+export type FormErrors = Partial<Record<keyof IOrder, string>>;
+
+export interface IAppState {
+	basket: ICardItem[];
+	catalog: ICardItem[];
+	preview: string | null;
+	order: IOrder | null;
+}
+```
 
 Получив массив карточек с сервера, мы отображаем их в галерее по событию. При клике на карточку открывается модальное окно с её данными. Если нажать кнопку "В корзину", товар добавляется или удаляется из неё, если он уже присутствует. Модальное окно можно закрыть, кликнув вне его области или на крестик. При оформлении заказа открывается новое модальное окно для выбора способа оплаты и указания адреса доставки. Если какие-то поля не заполнены, переход к следующему шагу блокируется. Затем заполняются поля для указания электронной почты и телефона. Если ошибок нет, заказ отправляется на сервер. При успешной отправке появляется модальное окно с уведомлением об успешном оформлении заказа и сумме покупки, а корзина очищается.
