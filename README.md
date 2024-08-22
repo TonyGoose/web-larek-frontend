@@ -64,10 +64,9 @@ yarn build
  - toggleClass(element: HTMLElement, className: string, force?: boolean): меняет состояние указанного класса у элемента. Если параметр force задан, класс будет добавлен или убран в зависимости от его значения.
  - setText(element: HTMLElement, value: unknown): обновляет текстовое содержимое элемента.
  - setDisabled(element: HTMLElement, state: boolean): изменяет состояние блокировки элемента.
- - setHidden(element: HTMLElement): скрывает элемент.
- - setVisible(element: HTMLElement): делает элемент видимым.
  - setImage(element: HTMLImageElement, src: string, alt?: string): обновляет изображение и альтернативный текст для элемента.
  - render(data?: Partial<T>): HTMLElement: отвечает за рендеринг компонента, принимая необязательные данные для обновления состояния и возвращает корневой DOM-элемент.
+
 
 ### Класс Model
 Модель представляет собой абстрактный класс для создания моделей данных, поддерживающих события. Он предназначен для управления данными и уведомления других компонентов о их изменениях.
